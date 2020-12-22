@@ -2,55 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
-import './home_screen.dart';
+import '../providers/auth.dart';
 
-class LoginScreen extends StatefulWidget {
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-
-  User _user;
-
-  void _handleLogin() async {
-    FacebookLogin facebookLogin = FacebookLogin();
-
-    final FacebookLoginResult result = await facebookLogin.logIn(permissions: [
-      FacebookPermission.publicProfile,
-      FacebookPermission.email,
-    ]);
-    switch (result.status) {
-      case FacebookLoginStatus.Cancel:
-        break;
-      case FacebookLoginStatus.Error:
-        print(result.error);
-        break;
-      case FacebookLoginStatus.Success:
-        try {
-          await loginWithfacebook(result);
-        } catch (e) {
-          print(e);
-        }
-        break;
-    }
-  }
-
-  Future loginWithfacebook(FacebookLoginResult result) async {
-    final FacebookAccessToken accessToken = result.accessToken;
-    AuthCredential credential =
-        FacebookAuthProvider.credential(accessToken.token);
-    var a = await _auth.signInWithCredential(credential);
-
-    _user = a.user;
-    HomeScreen();
-  }
-
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,8 +21,9 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             InkWell(
-              onTap: () {
-                _handleLogin();
+              onTap: () async {
+                await Provider.of<Auth>(context, listen: false)
+                    .loginWithFacebook();
               },
               child: Container(
                 padding: EdgeInsets.symmetric(
@@ -101,7 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20.0,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                await Provider.of<Auth>(context, listen: false)
+                    .loginInWithGoogle();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(
                   vertical: 20.0,
