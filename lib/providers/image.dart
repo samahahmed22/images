@@ -5,12 +5,18 @@ class Image with ChangeNotifier {
   final String title;
   final String owner;
   final String url;
+  final String date_taken;
+  final String description;
+  final String tags;
 
   Image({
       @required this.id,
       @required this.title,
       @required this.owner,
-      @required this.url
+      @required this.url,
+      @required this.date_taken,
+      @required this.description,
+      @required this.tags
       });
 
   // factory Image.fromJson(Map<String, dynamic> jsonData) {

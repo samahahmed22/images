@@ -32,13 +32,12 @@ class ImageDetailsScreen extends StatelessWidget {
               delegate: SliverChildListDelegate([
             SizedBox(height: 10),
 
-            Container(
+             Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   loadedImage.owner,
                   textAlign: TextAlign.center,
                 )),
-            SizedBox(height: 800)
           ])),
         ],
       

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:search_widget/search_widget.dart';
 
 import '../providers/auth.dart';
 import '../providers/images.dart';
 import '../widgets/images_grid.dart';
-import '../providers/auth.dart';
+import '../widgets/search_bar.dart';
 
 class SearchScreen extends StatelessWidget {
   @override
@@ -35,9 +34,10 @@ class SearchScreen extends StatelessWidget {
         ]),
       ]),
       body: Column(children: <Widget>[
+        SearchBar(),
         RaisedButton(
           onPressed: () async {
-            images.searchByImageTitle("cats");
+            await images.searchByImageTitle("cats");
           },
         ),
         Expanded(child: ImagesGrid())
