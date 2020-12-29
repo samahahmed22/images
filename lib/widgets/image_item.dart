@@ -9,7 +9,7 @@ class ImageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final image = Provider.of<im.Image>(context, listen: false);
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+      // borderRadius: BorderRadius.circular(10),
       child: GridTile(
         child: GestureDetector(
           onTap: () {
@@ -18,14 +18,10 @@ class ImageItem extends StatelessWidget {
               arguments: image.id,
             );
           },
-          child: Hero(
-            tag: image.id,
-            child: FadeInImage(
-              placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage(
-                  "https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg"),
-              fit: BoxFit.cover,
-            ),
+          child: FadeInImage(
+            placeholder: AssetImage('assets/loading.gif'),
+            image: NetworkImage(image.url_t),
+            fit: BoxFit.cover,
           ),
         ),
       ),

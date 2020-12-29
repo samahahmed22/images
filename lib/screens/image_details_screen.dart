@@ -15,32 +15,41 @@ class ImageDetailsScreen extends StatelessWidget {
       listen: false,
     ).findById(imageId);
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 300,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(loadedImage.title),
-              background:  Hero(
-                  tag: loadedImage.id,
-                  child: Image.network("https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg",
-                      fit: BoxFit.cover))
+      appBar: AppBar(title: Text('${loadedImage.title}')),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height/2,
+              width: double.infinity,
+              child: Image.network(
+                loadedImage.url_m,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          SliverList(
-              delegate: SliverChildListDelegate([
-            SizedBox(height: 10),
-
-             Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
+            // Container(
+            //   padding: EdgeInsets.symmetric(horizontal: 10),
+            //   child: Column(children: <Widget>[
+                Text(
                   loadedImage.owner,
                   textAlign: TextAlign.center,
-                )),
-          ])),
-        ],
-      
+                ),
+            //     Text(
+            //       loadedImage.date_taken,
+            //       textAlign: TextAlign.center,
+            //     ),
+            //     Text(
+            //       loadedImage.date_posted,
+            //       textAlign: TextAlign.center,
+            //     ),
+            //     Text(
+            //       loadedImage.views,
+            //       textAlign: TextAlign.center,
+            //     ),
+            //   ]),
+            // )
+          ],
+        ),
       ),
     );
   }

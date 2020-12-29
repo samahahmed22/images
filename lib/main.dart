@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import './screens/login_screen.dart';
 import './screens/image_details_screen.dart';
+import 'screens/search_result_screen.dart';
 import 'screens/search_screen.dart';
 import './screens/splash_screen.dart';
 import './providers/auth.dart';
@@ -36,8 +37,17 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       home: _showScreen(context),
+      onGenerateRoute: (RouteSettings settings) {
+
+        var routes = <String, WidgetBuilder>{
+          "search": (ctx) => SearchResultScreen(settings.arguments),
+        };
+        WidgetBuilder builder = routes[settings.name];
+        return MaterialPageRoute(builder: (ctx) => builder(ctx));
+      },
       routes: {
         ImageDetailsScreen.routeName: (ctx) => ImageDetailsScreen(),
+        // SearchResultScreen.routeName: (ctx) => SearchResultScreen(),
       },
     );
   }
