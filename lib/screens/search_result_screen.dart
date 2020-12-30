@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
@@ -7,7 +5,7 @@ import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 import '../providers/images.dart';
 import '../providers/image.dart' as img;
 import '../widgets/image_item.dart';
-import '../providers/auth.dart';
+import '../widgets/my_app_bar.dart';
 
 class SearchResultScreen extends StatefulWidget {
   static const routeName = '/search-result-screen';
@@ -41,23 +39,31 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
       int perPage = (((height / itemSize).round()) + 1) * 3;
 
       searchText = widget.text;
-      Provider.of<Images>(context, listen: false)
-          .searchByImageTitle(searchText, perPage)
-          .then((_) {
+      if (searchText ==
+          Provider.of<Images>(context, listen: false).searchText) {
         setState(() {
           _isLoading = false;
         });
-      });
+      } else {
+        Provider.of<Images>(context, listen: false)
+            .searchByImageTitle(searchText, perPage)
+            .then((_) {
+          setState(() {
+            _isLoading = false;
+          });
+        });
+      }
+      print(searchText);
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 
-  Future _loadMore() async {
+  Future _loadMore(String title) async {
     // setState(() {
     //   _isLoading = true;
     // });
-    await Provider.of<Images>(context, listen: false).fetchMoreData();
+    await Provider.of<Images>(context, listen: false).fetchMoreData(title);
     // setState(() {
     //   _isLoading = false;
     // });
@@ -65,38 +71,14 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final userData = Provider.of<Auth>(context, listen: false);
     images = Provider.of<Images>(context).imagesList;
     return Scaffold(
-        appBar: AppBar(
-          title: Text(searchText),
-          //  actions: <Widget>[
-          //   Row(children: <Widget>[
-          //     DropdownButton(
-          //       icon: CircleAvatar(
-          //         backgroundImage: NetworkImage(userData.user.photoURL),
-          //       ),
-          //       items: [
-          //         DropdownMenuItem(
-          //           child: Text('Logout'),
-          //         ),
-          //       ]),
-          //     // SizedBox(width: 8),
-          //     IconButton(
-          //       icon: Icon(Icons.exit_to_app),
-          //       onPressed: () async {
-          //         await Provider.of<Auth>(context, listen: false).logout();
-          //       },
-          //     ),
-          //     // SizedBox(width: 8),
-          //   ]),
-          // ]
-        ),
+        appBar: MyAppBar(searchText),
         body: _isLoading
             ? Center(child: CircularProgressIndicator())
             : LazyLoadScrollView(
                 isLoading: _isLoading,
-                onEndOfPage: () => _loadMore(),
+                onEndOfPage: () => _loadMore(searchText),
                 child: Scrollbar(
                   child: GridView.builder(
                     padding: const EdgeInsets.all(10.0),

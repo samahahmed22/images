@@ -47,7 +47,8 @@ class Auth with ChangeNotifier {
           final FacebookAccessToken accessToken = result.accessToken;
           AuthCredential credential =
               FacebookAuthProvider.credential(accessToken.token);
-          await _firebaseAuth.signInWithCredential(credential);
+          var authResult = await _firebaseAuth.signInWithCredential(credential);
+           _user = authResult.user;
           _authStatus = AuthStatus.authenticated;
           notifyListeners();
         } catch (e) {
@@ -72,7 +73,8 @@ class Auth with ChangeNotifier {
             await userAccount.authentication;
         AuthCredential credential = GoogleAuthProvider.credential(
             idToken: googleAuth.idToken, accessToken: googleAuth.accessToken);
-        await _firebaseAuth.signInWithCredential(credential);
+        var authResult = await _firebaseAuth.signInWithCredential(credential);
+        _user = authResult.user;
         _authStatus = AuthStatus.authenticated;
         notifyListeners();
       } catch (e) {

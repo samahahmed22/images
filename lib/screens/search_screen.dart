@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import './search_result_screen.dart';
+import '../widgets/my_app_bar.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -67,9 +67,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search for flicker images'),
-      ),
+      appBar: MyAppBar('Search for flicker images'),
       body: Container(
         child: Column(
           children: <Widget>[

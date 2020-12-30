@@ -11,17 +11,17 @@ class Images extends ChangeNotifier {
   int _total;
   String _searchText;
 
-
   image.Image findById(String id) {
     return _images.firstWhere((image) => image.id == id);
   }
 
   Future<void> searchByImageTitle(String imageTitle, int perPage) async {
-    if (_searchText == null) {
+    if (_searchText != imageTitle) {
       _images = [];
-      _searchText = imageTitle;
-      _perPage = perPage;
     }
+
+    _searchText = imageTitle;
+    _perPage = perPage;
 
     var jsonData =
         await ImagesApi().searchByImageTitle(_searchText, _perPage, _page);
@@ -29,7 +29,7 @@ class Images extends ChangeNotifier {
     _pages = jsonData['pages'];
     _total = int.parse(jsonData['total']);
 
-     List<image.Image> _currentImages = [];
+    List<image.Image> _currentImages = [];
     _currentImages = jsonImages.map((e) => image.Image.fromJson(e)).toList();
     _images.addAll(_currentImages);
 
@@ -43,23 +43,20 @@ class Images extends ChangeNotifier {
     //   _images.add( image.Image.fromJson(await ImagesApi().getImageData(jsonImages[i]['id'])));
 
     // }
-    
 
     notifyListeners();
   }
 
-  Future<void> fetchMoreData() {
-    if (_searchText != null) {
-      if (_page == _pages) {
-        _perPage = _total - _images.length;
-        searchByImageTitle(_searchText, _perPage);
-        _page = 1;
-        _searchText = null;
-      } else {
-        _page++;
-        searchByImageTitle(_searchText, _perPage);
-      }
+  Future<void> fetchMoreData(String title) {
+    if (_page == _pages) {
+      _perPage = _total - _images.length;
+      searchByImageTitle(title, _perPage);
+      _page = 1;
+    } else {
+      _page++;
+      searchByImageTitle(title, _perPage);
     }
+
     notifyListeners();
   }
 

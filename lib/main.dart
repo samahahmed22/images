@@ -35,10 +35,19 @@ class MyApp extends StatelessWidget {
       title: 'Flickr images',
       theme: ThemeData(
         primaryColor: Colors.blue,
+        textTheme: Theme.of(context).textTheme.copyWith(
+              headline2: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+              headline3: TextStyle(
+                  color: Colors.blue,
+                  fontStyle: FontStyle.italic,
+                  fontSize: 16),
+            ),
       ),
       home: _showScreen(context),
       onGenerateRoute: (RouteSettings settings) {
-
         var routes = <String, WidgetBuilder>{
           "search": (ctx) => SearchResultScreen(settings.arguments),
         };
