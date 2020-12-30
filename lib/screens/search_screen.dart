@@ -68,7 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar('Search for flicker images'),
+      appBar: MyAppBar('Search for images'),
       body: Container(
         child: Column(
           children: <Widget>[
