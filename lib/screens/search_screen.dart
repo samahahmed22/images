@@ -107,9 +107,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       items[items.length - index - 1],
                       style: Theme.of(context).textTheme.headline2,
                     ),
-                    subtitle: Text(""),
+
                     leading: Icon(Icons.history),
-                    isThreeLine: true,
                     onTap: () {
                       setState(() {
                         searchText = items[items.length - index - 1];
