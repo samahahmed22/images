@@ -20,6 +20,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(title: Text(title), actions: <Widget>[
       Row(children: <Widget>[
         PopupMenuButton(
+          offset: Offset(0, 100),
           elevation: 5,
           onSelected: (_) async {
             Navigator.of(context).pushReplacementNamed('/');
