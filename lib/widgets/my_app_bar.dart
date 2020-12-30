@@ -21,6 +21,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
       Row(children: <Widget>[
         PopupMenuButton(
           offset: Offset(0, 100),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
           elevation: 5,
           onSelected: (_) async {
             Navigator.of(context).pushReplacementNamed('/');
