@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/my_app_bar.dart';
 
 class SearchScreen extends StatefulWidget {
+  static const routeName = '/';
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -102,16 +103,19 @@ class _SearchScreenState extends State<SearchScreen> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text('${items[index]}'),
+                    title: Text(
+                      items[items.length - index - 1],
+                      style: Theme.of(context).textTheme.headline2,
+                    ),
                     subtitle: Text(""),
                     leading: Icon(Icons.history),
                     isThreeLine: true,
                     onTap: () {
                       setState(() {
-                        searchText = items[index];
+                        searchText = items[items.length - index - 1];
                         editingController.text = searchText;
                       });
-                      filterSearchResults(items[index]);
+                      filterSearchResults(items[items.length - index - 1]);
                     },
                   );
                 },

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../providers/auth.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/login';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -36,12 +36,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
         textTheme: Theme.of(context).textTheme.copyWith(
-              headline2: TextStyle(
-                  color: Colors.black,
+              headline1: TextStyle(
+                  color: Colors.black87,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
+              headline2: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 16),
               headline3: TextStyle(
-                  color: Colors.blue,
+                  color: Colors.black45,
                   fontStyle: FontStyle.italic,
                   fontSize: 16),
             ),
@@ -56,6 +60,7 @@ class MyApp extends StatelessWidget {
       },
       routes: {
         ImageDetailsScreen.routeName: (ctx) => ImageDetailsScreen(),
+        LoginScreen.routeName: (ctx) => LoginScreen(),
         // SearchResultScreen.routeName: (ctx) => SearchResultScreen(),
       },
     );

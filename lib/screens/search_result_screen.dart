@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+import '../providers/auth.dart';
 
 import '../providers/images.dart';
 import '../providers/image.dart' as img;

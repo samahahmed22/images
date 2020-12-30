@@ -31,62 +31,39 @@ class ImageDetailsScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(10),
               child: Column(children: <Widget>[
-                 Row(children: <Widget>[
-                  Text(
-                    'Title: ',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  Text(
+                ListTile(
+                  title: Text(
                     loadedImage.title,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.headline1,
                   ),
-                ]),
-                 Row(children: <Widget>[
-                  Text(
-                    'Description: ',
+                  subtitle: Text(
+                    loadedImage.description,
                     style: Theme.of(context).textTheme.headline2,
                   ),
-                  Expanded(
-                                      child: Text(
-                      loadedImage.description,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  ),
-                ]),
-                Row(children: <Widget>[
-                  Text(
-                    'Taken by: ',
-                    style: Theme.of(context).textTheme.headline2,
-                  ),
-                  Text(
-                    loadedImage.owner,
+                  leading: Icon(Icons.view_headline),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text(
+                    loadedImage.views + ' Views',
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                ]),
-                Row(children: <Widget>[
-                  Text('Taken at: ',
-                      style: Theme.of(context).textTheme.headline2),
-                  Text(
-                    loadedImage.date_taken,
+                  leading: Icon(Icons.remove_red_eye),
+                ),
+                ListTile(
+                  title: Text(
+                    'Taken at ' + loadedImage.date_taken,
                     style: Theme.of(context).textTheme.headline3,
                   ),
-                ]),
-                Row(children: <Widget>[
-                  Text('Posted at: ',
-                      style: Theme.of(context).textTheme.headline2),
-                    Text(
-                      loadedImage.date_posted,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                ]),
-                 Row(children: <Widget>[
-                  Text('Views: ',
-                      style: Theme.of(context).textTheme.headline2),
-                    Text(
-                      loadedImage.views,
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                 ]),
+                  leading: Icon(Icons.calendar_today),
+                ),
+                ListTile(
+                  title: Text(
+                    'Taken By ' + loadedImage.owner,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                  leading: Icon(Icons.person),
+                ),
               ]),
             )
           ],
